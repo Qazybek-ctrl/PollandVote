@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-def index(request):
-    return render(request, 'Content/index.html')
+def home(request):
+    return render(request, 'Content/home.html')
 
-def blog(request):
-    return render(request, "Content/blog.html")
+def polls(request):
+    return render(request, "Content/polls.html")
