@@ -1,6 +1,10 @@
+from django.http import request
 from django.shortcuts import render
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'Auth/index.html')
+def logining_views(request):
+    return render(request, 'Auth/logining.html')
+
+def registration_views(request):
+    return render(request, 'Auth/registration.html')
