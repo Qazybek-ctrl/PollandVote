@@ -34,30 +34,35 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
 				<form class="login100-form validate-form" method="POST">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-33">
-						Fill the form below 
+						{% if error %}
+						{{ error }}
+						{% else %}
+						Fill the form below
+						{% endif %}
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
+						{{ forms.email }}
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="First_name" placeholder="First Name">
+						{{ forms.first_name }}
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="Second_name" placeholder="Second Name">
+						{{ forms.last_name }}
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 
 					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						{{ forms.password }}
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
