@@ -1,6 +1,17 @@
+from django.contrib import auth
 from django.contrib.auth.models import User
-
+from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
+
+def pass_user_to_acc(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    user = authenticate(username=email, password=password)
+    if user is not None:
+        login(request, user)
+        return ""
+    else:
+        return "User with this email doesn't exist"
 
 def register_new_user(request):
     user_name = request.POST['first_name']
@@ -26,3 +37,9 @@ def check_user_unique(request):
         return ""
     else: 
         return "User with this email already exists!"
+
+def authorization(request):
+    user = User.objects.filter(username = request.POST['email'])
+    if len(user) == 0:
+        return "Account doesn't exists!"
+    

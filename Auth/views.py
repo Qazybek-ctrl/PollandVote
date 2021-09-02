@@ -1,13 +1,20 @@
 from django.http import request
 from django.shortcuts import redirect, render
 
-from .forms import RegForm
+from .forms import LogForm, RegForm
 
 from . import views_cases
 # Create your views here.
 
 def logining_view(request):
-    return render(request, 'Auth/logining.html')
+    context = {
+        'forms':LogForm(),
+        'error':''
+    }
+    if request.method == 'POST':
+        context['error'] = views_cases.pass_user_to_acc(request)
+        return redirect("polls")
+    return render(request, 'Auth/logining.html', context)
 
 def registration_view(request):
     context = {

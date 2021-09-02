@@ -38,3 +38,25 @@ class RegForm(ModelForm):
                 'placeholder':"Password"
             })
         }
+
+class LogForm(ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'password'
+        ]
+        widgets = {
+            'email' : TextInput(attrs={
+                'class':"input100",
+                'type':"text", 
+                'name':"email", 
+                'placeholder':"Email"
+            }),
+            'password' : TextInput(attrs={
+                'class':"input100",
+                'type':"password", 
+                'name':"pass", 
+                'placeholder':"Password"
+            })
+        }
