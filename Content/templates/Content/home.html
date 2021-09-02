@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Moderna Bootstrap Template - Index</title>
+  <title>Poll Project</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -52,12 +52,18 @@
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
           <li class="active"><a href="#">Home</a></li>
-          <li><a href="polls">Polls</a></li>          
+          <li><a href="polls">Polls</a></li> 
+          {% if active %}    
+          <li><a href="auth/logout" class="btn-get-started animate__animated animate__fadeInUp"><strong>Logout</strong></a></li>
+          {% else %}
+          <li><a href="auth/register" class="btn-get-started animate__animated animate__fadeInUp"><strong>Sign UP</strong></a></li>
+          <li><a href="auth" class="btn-get-started animate__animated animate__fadeInUp"><strong>Sign IN</strong></a></li>
+          {% endif %}
         </ul>
-      </nav><!-- .nav-menu -->
+      </nav>
 
     </div>
-  </header><!-- End Header -->
+  </header>
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex justify-cntent-center align-items-center">

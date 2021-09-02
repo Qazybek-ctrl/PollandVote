@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Poll(models.Model):
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200, default="Test Description")
     title = models.CharField(max_length=50)
     option1 = models.CharField(max_length=25)
     option2 = models.CharField(max_length=25)

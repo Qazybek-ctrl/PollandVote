@@ -1,10 +1,14 @@
 from django.http import request
 from django.shortcuts import redirect, render
-
+from django.contrib.auth import login, logout, authenticate
 from .forms import LogForm, RegForm
 
 from . import views_cases
 # Create your views here.
+
+def logging_out(request):
+    logout(request)
+    return redirect("home")
 
 def logining_view(request):
     context = {
