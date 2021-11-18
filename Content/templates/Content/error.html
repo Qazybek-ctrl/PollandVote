@@ -95,21 +95,8 @@
           <div class="col-lg-8 entries">
             
             <article class="entry">
-              {% if poll %}
-              <form method="POST">
-                {% csrf_token %}
-                <h1>{{ poll.title }}</h1>
-                <input type="hidden" name="poll_id" value="{{ poll.id }}">
-                <input type="radio" name="answer" id="answer" value="{{ poll.option1 }}">{{ poll.option1 }}
-                <input type="radio" name="answer" id="answer" value="{{ poll.option2 }}">{{ poll.option2 }}
-                <input type="radio" name="answer" id="answer" value="{{ poll.option3 }}">{{ poll.option3 }}
-                <div class="read-more">
-                  <input type="submit" value="Vote">
-                </div>
-                </form>
-              {% else %}
-              <h2>Error: poll is not specialized!</h2>
-              {% endif %}
+              <h1>You have already passed this poll.</h1>
+              <a href="polls">Try our other polls.</a>
             </article><!-- End blog entry -->
 
           </div><!-- End blog entries list -->

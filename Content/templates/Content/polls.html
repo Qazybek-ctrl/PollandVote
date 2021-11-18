@@ -113,9 +113,16 @@
                 <p>
                   {{ poll.description }}
                 </p>
+                {% if poll.id in votes %}
+                <h2>{{ poll.option1 }}: {{ poll.votes1 }}</h2>
+                <h2>{{ poll.option2 }}: {{ poll.votes2 }}</h2>
+                <h2>{{ poll.option3 }}: {{ poll.votes3 }}</h2>
+                <h3>Total amount of people who voted: {{ poll.total_votes }}</h3>
+                {% else %}
                 <div class="read-more">
                   <a href="poll-start?poll_id={{ poll.id }}">Vote for this poll</a>
                 </div>
+                {% endif %}
               </div>
               
 
