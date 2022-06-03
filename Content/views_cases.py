@@ -10,6 +10,23 @@ def polls_view_data_preparation(request):
     }
     votes = Voted.objects.filter(user_id=request.user.id)
     voted_polls_id = []
+    general = Poll.objects.filter(category="general")
+    context['general'] = len(general)
+
+    lifestyle = Poll.objects.filter(category="lifestyle")
+    context['lifestyle'] = len(lifestyle)
+
+    travel = Poll.objects.filter(category="travel")
+    context['travel'] = len(travel)
+
+    design = Poll.objects.filter(category="design")
+    context['design'] = len(design)
+
+    creative = Poll.objects.filter(category="creative")
+    context['creative'] = len(creative)
+
+    education = Poll.objects.filter(category="education")
+    context['education'] = len(education)
     for vote in votes:
         voted_polls_id.append(vote.poll_id)
     context['votes'] = voted_polls_id
@@ -37,7 +54,8 @@ def user_voting(request):
 def check_user_validity(request):
     poll_id = request.GET['poll_id']
     context = {
-        'poll':Poll.objects.get(id=poll_id)
+        'poll':Poll.objects.get(id=poll_id),
+        'active':request.user.is_authenticated
     }
     try:
         vote = Voted.objects.get(
@@ -48,3 +66,24 @@ def check_user_validity(request):
         return render(request, 'Content/poll_begin.html', context)
     else:
         return redirect("error")
+
+def poll_creation(request):
+    user = request.user
+    title = request.POST['title']
+    desc = request.POST['description']
+    option1 = request.POST['option1']
+    option2 = request.POST['option2']
+    option3 = request.POST['option3']
+    category = request.POST['category']
+    poll = Poll()
+    poll.title = title
+    poll.description = desc
+    poll.category = category
+    poll.option1 = option1
+    poll.option2 = option2
+    poll.option3 = option3
+    poll.owner_id = user
+    poll.save()
+    vote = Voted(user_id=user.id, poll_id=poll.id)
+    vote.save()
+    return redirect("polls")

@@ -44,16 +44,14 @@
 
       <div class="logo float-left">
         <h1 class="text-light"><a href="/"><span>Moderna</span></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu float-right d-none d-lg-block">
         <ul>
           <li><a href="/">Home</a></li>
-          <li class="active"><a href="polls">Polls</a></li> 
+          <li><a href="polls">Polls</a></li> 
           {% if active %}   
-          <li><a href="poll_creation">Create Poll</a></li> 
+          <li class="active"><a href="#">Create Poll</a></li> 
           <li><a href="auth/logout" class="btn-get-started animate__animated animate__fadeInUp"><strong>Logout</strong></a></li>
           {% else %}
           <li><a href="auth/register" class="btn-get-started animate__animated animate__fadeInUp"><strong>Sign UP</strong></a></li>
@@ -75,7 +73,7 @@
           {% if active %}
           <h2>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
           {% else %}
-          <h2>Welcome Guest</h2>
+          <h2>Welcome, Guest</h2>
           {% endif %}
           <ol>
             <li><a href="/">Home</a></li>
@@ -94,66 +92,90 @@
 
           <div class="col-lg-8 entries">
             
-            {% if polls %}
-            {% for poll in polls %}
             <article class="entry">
-
-              <h2 class="entry-title">
-                {{ poll.title }}
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center"><i class="icofont-user" style="color:grey"><strong>{{ poll.owner_id.first_name }} {{ poll.owner_id.last_name }} </strong></i></li>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock" style="color:grey"><strong>{{ poll.date_now }}</strong></i></li>
-                </ul>
-              </div>
-
-              
-              <div class="entry-content">
-                <p>
-                  {{ poll.description }}
-                </p>
-                {% if poll.id in votes %}
-                <h2>{{ poll.option1 }}: {{ poll.votes1 }}</h2>
-                <h2>{{ poll.option2 }}: {{ poll.votes2 }}</h2>
-                <h2>{{ poll.option3 }}: {{ poll.votes3 }}</h2>
-                <h3>Total amount of people who voted: {{ poll.total_votes }}</h3>
-                {% else %}
-                <div class="read-more">
-                  <a href="poll-start?poll_id={{ poll.id }}">Vote for this poll</a>
-                </div>
-                {% endif %}
-                {% if poll.owner_id == request.user %}
-                  <form method="post">
+                {% if form %}
+                <h2>Create your new poll</h2>
+                <form method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="poll_id" value="{{poll.id}}">
-                    <input type="submit" value="Delete">
-                  </form>
+                    <h4>Enter title of your poll</h4>
+                    {{ form.title }}
+                    <br>
+                    <h4>Enter description</h4>
+                    {{ form.description }}
+                    <br>
+                    <h4>Choose category of your poll:</h4>
+                    <select name="category">
+                      <option value="general">General</option>
+                      <option value="lifestyle">Lifestyle</option>
+                      <option value="travel">Travel</option>
+                      <option value="design">Design</option>
+                      <option value="creative">Creative</option>
+                      <option value="education">Education</option>
+                    </select>
+                    <br>
+                    <h5>Option #1</h5>
+                    {{ form.option1 }}
+                    <br>
+                    <h5>Option #2</h5>
+                    {{ form.option2 }}
+                    <br>
+                    <h5>Option #3</h5>
+                    {{ form.option3 }}
+                    <br>
+                    <br>
+                    <br>
+                    <input type="submit" value="Create new poll">
+                </form>
+                {% else %}
+                <h2>Sorry, something went wrong <br> :(</h2>
                 {% endif %}
-              </div>
-
-
             </article><!-- End blog entry -->
-            {% endfor %}
-            {% endif %}
+
           </div><!-- End blog entries list -->
 
           <div class="col-lg-4">
             <div class="sidebar">
 
+              <h3 class="sidebar-title">Search</h3>
+              <div class="sidebar-item search-form">
+                <form action="">
+                  <input type="text">
+                  <button type="submit"><i class="icofont-search"></i></button>
+                </form>
+              </div><!-- End sidebar search formn-->
+
               <h3 class="sidebar-title">Categories</h3>
               <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="polls?query=general">General <span>({{ general }})</span></a></li>
-                  <li><a href="polls?query=lifestyle">Lifestyle <span>({{ lifestyle }})</span></a></li>
-                  <li><a href="polls?query=travel">Travel <span>({{ travel }})</span></a></li>
-                  <li><a href="polls?query=design">Design <span>({{ design }})</span></a></li>
-                  <li><a href="polls?query=creative">Creative <span>({{ creative }})</span></a></li>
-                  <li><a href="polls?query=education">Educaion <span>({{ education }})</span></a></li>
+                  <li><a href="#">General <span>(25)</span></a></li>
+                  <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                  <li><a href="#">Travel <span>(5)</span></a></li>
+                  <li><a href="#">Design <span>(22)</span></a></li>
+                  <li><a href="#">Creative <span>(8)</span></a></li>
+                  <li><a href="#">Educaion <span>(14)</span></a></li>
                 </ul>
 
               </div><!-- End sidebar categories-->
+
+              
+              <h3 class="sidebar-title">Tags</h3>
+              <div class="sidebar-item tags">
+                <ul>
+                  <li><a href="#">App</a></li>
+                  <li><a href="#">IT</a></li>
+                  <li><a href="#">Business</a></li>
+                  <li><a href="#">Business</a></li>
+                  <li><a href="#">Mac</a></li>
+                  <li><a href="#">Design</a></li>
+                  <li><a href="#">Office</a></li>
+                  <li><a href="#">Creative</a></li>
+                  <li><a href="#">Studio</a></li>
+                  <li><a href="#">Smart</a></li>
+                  <li><a href="#">Tips</a></li>
+                  <li><a href="#">Marketing</a></li>
+                </ul>
+
+              </div><!-- End sidebar tags-->
 
             </div><!-- End sidebar -->
 
